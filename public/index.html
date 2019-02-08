@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Queue Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/please-wait/0.0.5/please-wait.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdn.discordapp.com/attachments/467425900947046411/469129212767371274/plexi_watermark.png" id="favicon" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-4" style="margin-top: 20px;">Hello<span class="username"></span>!</h1>
+            <p class="lead" id="header">There are currently <b class="queueLength"></b> bots in the queue for <b class="guildName"></b></p>
+        </div>
+    </div>
+    <div id="guest" class="alert alert-secondary" style="margin: 25px; display: none;" role="alert">
+      <b>You are currently logged in as a guest.</b><br>
+      This page displays the current bot queue and updates in real time.
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <p class="lead">
+                Awaiting Actions
+            </p>
+        </div>
+        <br>
+        <div class="container">
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Prefix</th>
+                        <th scope="col">Bot</th>
+                        <th scope="col">Currently</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="actions"></tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="jumbotron">
+        <div class="container">
+            <p class="lead">
+                In Progress
+            </p>
+        </div>
+        <br>
+        <div class="container">
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="row">Position</th>
+                        <th scope="col">Prefix</th>
+                        <th scope="col">Bot</th>
+                        <th scope="col">Currently</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="testing"></tbody>
+            </table>
+        </div>
+    </div>
+  <br>
+    <div class="jumbotron">
+        <div class="container">
+            <p class="lead">
+                Leaderboard
+            </p>
+        </div>
+        <br>
+        <div class="container">
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Bots Tested</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/please-wait/0.0.5/please-wait.min.js"></script>
+    <script src="init.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
