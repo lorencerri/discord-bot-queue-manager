@@ -26,11 +26,11 @@ class Website {
     });
 
     let ops = {
-      clientId: '467875880794849282',
-      clientSecret: 'IS782kP-L8zBQCsNQCkNy2rpvN80QSZP',
+      clientId: '467875880794849282', // This is what the input shoud look like, replace it with your own.
+      clientSecret: 'IS782kP-L8zBQCsNQCkNy2rpvN80QSZP', // This is what the input shoud look like, replace it with your own.
       accessTokenUri: 'https://discordapp.com/api/oauth2/token',
       authorizationUri: 'https://discordapp.com/api/oauth2/authorize',
-      redirectUri: 'https://db-manager.glitch.me/callback',
+      redirectUri: 'https://db-manager.glitch.me/callback', // This is what the input shoud look like, replace it with your own.
       scopes: ['identify']
     };
 
