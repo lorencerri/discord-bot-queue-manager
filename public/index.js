@@ -32,8 +32,8 @@ socket.on('getNewInfo', function() {
 socket.on('getInfo', function(info) {
 
   // Verify Login & Access
-  if (!info) updateLoadingHTML('<a href=https://discordapp.com/api/oauth2/authorize?client_id=583910433300152331&redirect_uri=http%3A%2F%2Fqueue-manager.glitch.me&response_type=code&scope=identify"><button type="button" class="btn btn-dark">Login With Discord</button></a>')
-  else if (info === 403) updateLoadingHTML('Sorry, you don\'t have access to this page...');
+  if (!info) updateLoadingHTML('<a href="https://discordapp.com/api/oauth2/authorize?client_id=583910433300152331&redirect_uri=http%3A%2F%2Fqueue-manager.glitch.me&response_type=code&scope=identify"><button type="button" class="btn btn-dark">Login With Discord</button></a>')
+  //else if (info === 403) updateLoadingHTML('Sorry, you don\'t have access to this page...');
   else window.loading_screen.finish();
   
   // Clear Data

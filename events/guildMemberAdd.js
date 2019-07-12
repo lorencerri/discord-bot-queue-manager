@@ -39,7 +39,7 @@ exports.run = (client, member) => {
     
     // Update Username
     member.setNickname(`[ ${bot.prefix} ] ${member.user.username}`);
-    
+    7
     // Add Bot Role
     member.roles.add(member.guild.roles.find(r => r.name === 'Bot'));
     
