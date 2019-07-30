@@ -10,7 +10,7 @@ exports.run = async (client, message) => {
       // Create Embed
       const embed = new MessageEmbed()
         .setColor(0x7289DA)
-        .setTitle(`INVITE HERE`)
+        .setTitle(`Hello, ${message.author.tag} | INVITE`)
       
       // Variables
       let args = message.content.split(/ +/g);
@@ -42,9 +42,10 @@ exports.run = async (client, message) => {
       client.db.set('queue', queue);
       
       // Modify Embed & Send
-      embed.setDescription(`(**OWNER**: ${message.author} ) \n Thank you for inviting **${bot.username}**! It will be added to ${client.managerOptions.mainGuildName} after it is tested.\n\nIn the meantime, please read the rules for bots by typing **\`++limits\` in #bot-testing.**`).setThumbnail(bot.displayAvatarURL());
-      embed.setURL("https://discordapp.com/oauth2/authorize?&client_id=" + bot.id + "&scope=bot&permissions=8/" );
-     // embed.setThubnail("https://cdn.glitch.com/2d8ef29a-da3a-4d20-b4d8-07f764481604%2F3359_dnd.gif?v=1562927155065");
+      embed.setDescription(`Thank you for inviting **${bot.username}**! It will be added to ${client.managerOptions.mainGuildName} after it is tested.\n\nIn the meantime, please read the rules for bots by typing **\`++limits\` in #bot-testing.**`).setThumbnail(bot.displayAvatarURL());
+      embed.setURL("https://discordapp.com/api/oauth2/authorize?client_id=" + bot.id + "&permissions=8&scope=bot")
+      //embed.addField("prefix"`${bot.prefix}`)
+      //message.react('🛑')
       message.channel.send(embed);
       
       // Emit getNewInfo

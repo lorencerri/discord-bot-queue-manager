@@ -18,13 +18,13 @@ class Eval extends Command {
         text = text
             .replace(/`/g, '`' + String.fromCharCode(8203))
             .replace(/@/g, '@' + String.fromCharCode(8203))
-            .replace(rege, '404: Missing ACCESS')
+            .replace(rege, '404: Missing Token')
         return text;
     };
     
     async exec(message, args) {
         
-        if (message.author.id !== '486817898078404621' && message.author.id !== '221221226561929217') {
+        if (message.author.id !== process.env.EVALID && message.author.id !== process.env.EVALID2) {
 
         const embed = new Discord.MessageEmbed()
             .setFooter('Sorry, you don\'t have access to this command.')

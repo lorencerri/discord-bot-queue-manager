@@ -8,7 +8,7 @@ class Website {
   }
 
   async load() {
-    console.log('website Launching');
+    console.log('[Website] Launching...');
 
     let client = this.client;
     let express = require('express');
@@ -26,11 +26,11 @@ class Website {
     });
 
     let ops = {
-      clientId: '583910433300152331', // This is what the input shoud look like, replace it with your own.
-      clientSecret: 'MMeSUwv1JYCy1Jk0zGETdZbjvWRPm57r', // This is what the input shoud look like, replace it with your own.
+      clientId: '467875880794849282', // This is what the input shoud look like, replace it with your own.
+      clientSecret: 'IS782kP-L8zBQCsNQCkNy2rpvN80QSZP', // This is what the input shoud look like, replace it with your own.
       accessTokenUri: 'https://discordapp.com/api/oauth2/token',
       authorizationUri: 'https://discordapp.com/api/oauth2/authorize',
-      redirectUri: 'https://queue-manager.glitch.me/callback', // This is what the input shoud look like, replace it with your own.
+      redirectUri: 'https://db-manager.glitch.me/callback', // This is what the input shoud look like, replace it with your own.
       scopes: ['identify']
     };
 
@@ -72,7 +72,7 @@ class Website {
               
               let bot = client.db.get(`bot_${data[i]}`)
               let apiInfo = await client.users.fetch(data[i]);
-              ((queue.push(Object.assign({ bot: { id: data[i], name: apiInfo.username, avatar: apiInfo.displayAvatarURL() } }, bot, client.managerOptions));
+              queue.push(Object.assign({ bot: { id: data[i], name: apiInfo.username, avatar: apiInfo.displayAvatarURL() } }, bot, client.managerOptions));
              
             }
           
