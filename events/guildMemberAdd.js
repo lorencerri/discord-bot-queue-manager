@@ -13,9 +13,6 @@ exports.run = (client, member) => {
     // Send Notification
     client.channels.get(client.managerOptions.logsChannelID).send(`(Owner: ${client.users.get(bot.authorID).tag}) **${member.user.tag}** has been added to the verification center.`);
     
-    // Sends When Bot Joins Testing Guild
-    client.channels.get(client.managerOptions.reqID).send(`**NEW BOT JOINED** \n\n ***BOT***: ${member.user.tag} \n PREFIX - ${bot.prefix} \n ID -${member.id} \n\n **OWNER**: ${client.users.get(bot.authorID).tag} \n\n **_TEST IT WELL!_** \n\n ***END***`)
-    
     // Update Username
     member.setNickname(`[ ${bot.prefix} ] ${member.user.username}`);
     
@@ -49,8 +46,6 @@ exports.run = (client, member) => {
     // Add Developer Role
     let owner = member.guild.members.get(bot.authorID);
     owner.roles.add(member.guild.roles.find(r => r.name === 'Developer'));
-    
-    
     
     // Send Notification
     client.channels.get(client.managerOptions.logsChannelID).send(`(Owner: ${owner}) **${member.user.tag}** has been added to **${client.managerOptions.mainGuildName}**.`);

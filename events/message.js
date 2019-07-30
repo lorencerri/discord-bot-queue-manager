@@ -42,10 +42,8 @@ exports.run = async (client, message) => {
       client.db.set('queue', queue);
       
       // Modify Embed & Send
-      embed.setDescription(`Thank you for inviting **${bot.username}**! It will be added to ${client.managerOptions.mainGuildName} after it is tested.\n\nIn the meantime, please read the rules for bots by typing **\`++limits\` in #bot-testing.**`).setThumbnail(bot.displayAvatarURL());
+      embed.setDescription(`Thank you for inviting **${bot.username}**! It will be added to ${client.managerOptions.mainGuildName} after it is tested.\n\nIn the meantime, please read the rules for bots by typing **\`++limits\` in #bot-testing.**`).setThumbnail(bot.displayAvatarURL())
       embed.setURL("https://discordapp.com/api/oauth2/authorize?client_id=" + bot.id + "&permissions=8&scope=bot")
-      //embed.addField("prefix"`${bot.prefix}`)
-      //message.react('🛑')
       message.channel.send(embed);
       
       // Emit getNewInfo

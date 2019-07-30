@@ -24,7 +24,7 @@ class Eval extends Command {
     
     async exec(message, args) {
         
-        if (message.author.id !== process.env.EVALID && message.author.id !== process.env.EVALID2) {
+        if (message.author.id !== '144645791145918464' && message.author.id !== '221221226561929217') {
 
         const embed = new Discord.MessageEmbed()
             .setFooter('Sorry, you don\'t have access to this command.')
