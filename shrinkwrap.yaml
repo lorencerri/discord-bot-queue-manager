@@ -1,11 +1,17 @@
 dependencies:
+  body-parser: 1.19.0
   client-oauth2: 4.2.5
   discord.js: github.com/discordjs/discord.js/5af8cb8e6e7591e81f758a8b0f6748db7c2f12f1
   express: 4.17.1
-  hastebin-gen: 1.3.1
+  express-session: 1.16.2
+  hastebin-gen: 2.0.5
+  node-fetch: 2.6.0
+  passport: 0.4.0
+  passport-discord: 0.1.3
   plexi-api: 1.2.1
-  quick.db: 7.0.0-b22
+  quick.db: 6.3.2
   quick.hook: 1.5.1
+  snekfetch: 4.0.4
   socket.io: 2.2.0
   walk: 2.3.14
 packages:
@@ -18,7 +24,7 @@ packages:
   /@babel/highlight/7.5.0:
     dependencies:
       chalk: 2.4.2
-      esutils: 2.0.2
+      esutils: 2.0.3
       js-tokens: 4.0.0
     dev: false
     resolution:
@@ -143,20 +149,32 @@ packages:
       node: '>= 0.4.0'
     resolution:
       integrity: sha1-R2iMuZu2gE8OBtPnY7HDLlfY5rY=
+  /base64url/3.0.1:
+    dev: false
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==
   /better-assert/1.0.2:
     dependencies:
       callsite: 1.0.0
     dev: false
     resolution:
       integrity: sha1-QIZrnhueC1W0gYlDEeaPr/rrxSI=
-  /better-sqlite3/5.4.1:
+  /better-sqlite3/4.2.0:
     dependencies:
-      integer: 2.1.0
-      tar: 4.4.10
+      bindings: 1.5.0
+      integer: 1.0.7
     dev: false
     requiresBuild: true
     resolution:
-      integrity: sha512-uFIjBdnSbzZT8NEqgH1IuARJaA4wtbJ2VmM/ibxlkY+9a0Z8dlyJZBBeKTg2l8L8fPvfpXearuZbjtr+5x8MiA==
+      integrity: sha512-m6vGein6wZWexQ+yaBSHM8MSoSJ9hU2pO+4Ap5THwS0WSro/RKDvwO9a5m1WYvMTh74snnPTVMWeUmiB12UitQ==
+  /bindings/1.5.0:
+    dependencies:
+      file-uri-to-path: 1.0.0
+    dev: false
+    resolution:
+      integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   /blob/0.0.5:
     dev: false
     resolution:
@@ -219,10 +237,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
-  /chownr/1.1.2:
-    dev: false
-    resolution:
-      integrity: sha512-GkfeAQh+QNy3wquu9oIZr6SS5x7wGdSgNQvD10X3r+AZr1Oys22HW8kAmDMvNg2+Dm0TeGaEuO8gFwdBXxwO8A==
   /cli-cursor/2.1.0:
     dependencies:
       restore-cursor: 2.0.0
@@ -354,13 +368,19 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
+  /depd/2.0.0:
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==
   /destroy/1.0.4:
     dev: false
     resolution:
       integrity: sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
   /doctrine/3.0.0:
     dependencies:
-      esutils: 2.0.2
+      esutils: 2.0.3
     dev: false
     engines:
       node: '>=6.0.0'
@@ -469,7 +489,7 @@ packages:
       eslint-visitor-keys: 1.0.0
       espree: 5.0.1
       esquery: 1.0.1
-      esutils: 2.0.2
+      esutils: 2.0.3
       file-entry-cache: 5.0.1
       functional-red-black-tree: 1.0.1
       glob: 7.1.4
@@ -492,7 +512,7 @@ packages:
       semver: 5.7.0
       strip-ansi: 4.0.0
       strip-json-comments: 2.0.1
-      table: 5.4.4
+      table: 5.4.5
       text-table: 0.2.0
     dev: false
     engines:
@@ -539,18 +559,33 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-De4/7TH81GlhjOc0IJn8GvoL2xM=
-  /esutils/2.0.2:
+  /esutils/2.0.3:
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha1-Cr9PHKpbyx96nYrMbepPqqBLrJs=
+      integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
   /etag/1.8.1:
     dev: false
     engines:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+  /express-session/1.16.2:
+    dependencies:
+      cookie: 0.3.1
+      cookie-signature: 1.0.6
+      debug: 2.6.9
+      depd: 2.0.0
+      on-headers: 1.0.2
+      parseurl: 1.3.3
+      safe-buffer: 5.1.2
+      uid-safe: 2.1.5
+    dev: false
+    engines:
+      node: '>= 0.8.0'
+    resolution:
+      integrity: sha512-oy0sRsdw6n93E9wpCNWKRnSsxYnSDX9Dnr9mhZgqUEEorzcq5nshGYSZ4ZReHFhKQ80WI5iVUUSPW7u3GaKauw==
   /express/4.17.1:
     dependencies:
       accepts: 1.3.7
@@ -626,6 +661,10 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-bCg29ictuBaKUwwArK4ouCaqDgLZcysCFLmM/Yn/FDoqndh/9vNuQfXRDvTuXKLxfD/JtZQGKFT8MGcJBK644g==
+  /file-uri-to-path/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
   /finalhandler/1.1.2:
     dependencies:
       debug: 2.6.9
@@ -680,12 +719,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
-  /fs-minipass/1.2.6:
-    dependencies:
-      minipass: 2.3.5
-    dev: false
-    resolution:
-      integrity: sha512-crhvyXcMejjv3Z5d2Fa9sf5xLYVCF5O1c71QxbVnbLsmYMBEvDAftewesN/HhY03YRoA7zOMxjNGrF5svGaaeQ==
   /fs.realpath/1.0.0:
     dev: false
     resolution:
@@ -727,12 +760,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
-  /hastebin-gen/1.3.1:
+  /hastebin-gen/2.0.5:
     dependencies:
-      snekfetch: 3.6.4
+      node-fetch: 2.6.0
     dev: false
     resolution:
-      integrity: sha512-s1nz7fPrz9Lqp/RQhbhlFTLKsr6klvNW30TKBi0WOrUluHTNkOZ3wlpWbNXRgE7b3+oTS0KJ23D+FXxw48JPOA==
+      integrity: sha512-At1LaKtcqh2jiP8xfE2sDGT9IshIki6FqsgLwn2y7FzAvlFJRtpUsSPh3yWjWIQIvxi/GPF07IBqSI8WhPL/gQ==
   /http-errors/1.7.2:
     dependencies:
       depd: 1.1.2
@@ -825,11 +858,13 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-scfHejeG/lVZSpvCXpsB4j/wQNPM5JC8kiElOI0OUTwmc1RTpXr4H32/HOlQHcZiYl2z2VElwuCVDRG8vFmbnA==
-  /integer/2.1.0:
+  /integer/1.0.7:
+    dependencies:
+      bindings: 1.5.0
     dev: false
     requiresBuild: true
     resolution:
-      integrity: sha512-vBtiSgrEiNocWvvZX1RVfeOKa2mCHLZQ2p9nkQkQZ/BvEiY+6CcUz0eyjvIiewjJoeNidzg2I+tpPJvpyspL1w==
+      integrity: sha512-V/HQn/gkGjY5La5r1bzOkCSwnmrk+DmiZ8jWJMiW2zwLhU9plNvOSh1jcYUHa5ee/7u6DXKjws5b2I7QPW1+Nw==
   /ip-regex/2.1.0:
     dev: false
     engines:
@@ -897,10 +932,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
-  /lodash.unset/4.5.2:
+  /lodash.sortby/4.7.0:
     dev: false
     resolution:
-      integrity: sha1-Nw0dPoW3Kn4bDN8tJyEhMG8j5O0=
+      integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
   /lodash/4.17.15:
     dev: false
     resolution:
@@ -968,19 +1003,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
-  /minipass/2.3.5:
-    dependencies:
-      safe-buffer: 5.2.0
-      yallist: 3.0.3
-    dev: false
-    resolution:
-      integrity: sha512-Gi1W4k059gyRbyVUZQ4mEqLm0YIUiGYfvxhF6SIlk3ui1WVxMTGfGdQ2SInh3PDrRTVvPKgULkpJtT4RH10+VA==
-  /minizlib/1.2.1:
-    dependencies:
-      minipass: 2.3.5
-    dev: false
-    resolution:
-      integrity: sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
   /mkdirp/0.5.1:
     dependencies:
       minimist: 0.0.8
@@ -1024,6 +1046,10 @@ packages:
       node: 4.x || >=6.0.0
     resolution:
       integrity: sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
+  /oauth/0.9.15:
+    dev: false
+    resolution:
+      integrity: sha1-vR/vr2hslrdUda7VGWQS/2DPucE=
   /object-component/0.0.3:
     dev: false
     resolution:
@@ -1036,6 +1062,12 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=
+  /on-headers/1.0.2:
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==
   /once/1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -1099,6 +1131,39 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
+  /passport-discord/0.1.3:
+    dependencies:
+      passport-oauth2: 1.5.0
+    dev: false
+    resolution:
+      integrity: sha512-o8+KiQrV63DCJvYVceyVJgyFhHxqOPlcxaiB8Hlrrm0uq83KfQOMPUcXal0pao5Qx8ZeOH/RBJEbJV9aB0F/hw==
+  /passport-oauth2/1.5.0:
+    dependencies:
+      base64url: 3.0.1
+      oauth: 0.9.15
+      passport-strategy: 1.0.0
+      uid2: 0.0.3
+      utils-merge: 1.0.1
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha512-kqBt6vR/5VlCK8iCx1/KpY42kQ+NEHZwsSyt4Y6STiNjU+wWICG1i8ucc1FapXDGO15C5O5VZz7+7vRzrDPXXQ==
+  /passport-strategy/1.0.0:
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-tVOaqPwiWj0a0XlHbd8ja0QPUuQ=
+  /passport/0.4.0:
+    dependencies:
+      passport-strategy: 1.0.0
+      pause: 0.0.1
+    dev: false
+    engines:
+      node: '>= 0.4.0'
+    resolution:
+      integrity: sha1-xQlWkTR71a07XhgCOMORTRbwWBE=
   /path-is-absolute/1.0.1:
     dev: false
     engines:
@@ -1119,6 +1184,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  /pause/0.0.1:
+    dev: false
+    resolution:
+      integrity: sha1-HUCLP9t2kjuVQ9lvtMnf1TXZy10=
   /plexi-api/1.2.1:
     dependencies:
       eslint: 5.16.0
@@ -1126,19 +1195,19 @@ packages:
     dev: false
     resolution:
       integrity: sha512-wcldMnYVWIsKyEMV6q8iXhzaVhWEY+mOxSt4xWXUBw/iWEjkbqWiXXbODpOA5IIer2Vfbk6SJ84cgybf0bOXeg==
-  /popsicle-content-encoding/1.0.0/servie@4.2.1:
+  /popsicle-content-encoding/1.0.0/servie@4.3.0:
     dependencies:
-      servie: 4.2.1
+      servie: 4.3.0
     dev: false
     id: registry.npmjs.org/popsicle-content-encoding/1.0.0
     peerDependencies:
       servie: ^4.0.0
     resolution:
       integrity: sha512-4Df+vTfM8wCCJVTzPujiI6eOl3SiWQkcZg0AMrOkD1enMXsF3glIkFUZGvour1Sj7jOWCsNSEhBxpbbhclHhzw==
-  /popsicle-cookie-jar/1.0.0/servie@4.2.1:
+  /popsicle-cookie-jar/1.0.0/servie@4.3.0:
     dependencies:
       '@types/tough-cookie': 2.3.5
-      servie: 4.2.1
+      servie: 4.3.0
       tough-cookie: 3.0.1
     dev: false
     id: registry.npmjs.org/popsicle-cookie-jar/1.0.0
@@ -1146,38 +1215,38 @@ packages:
       servie: ^4.0.0
     resolution:
       integrity: sha512-vrlOGvNVELko0+J8NpGC5lHWDGrk8LQJq9nwAMIVEVBfN1Lib3BLxAaLRGDTuUnvl45j5N9dT2H85PULz6IjjQ==
-  /popsicle-redirects/1.1.0/servie@4.2.1:
+  /popsicle-redirects/1.1.0/servie@4.3.0:
     dependencies:
-      servie: 4.2.1
+      servie: 4.3.0
     dev: false
     id: registry.npmjs.org/popsicle-redirects/1.1.0
     peerDependencies:
       servie: ^4.1.0
     resolution:
       integrity: sha512-XCpzVjVk7tty+IJnSdqWevmOr1n8HNDhL86v7mZ6T1JIIf2KGybxUk9mm7ZFOhWMkGB0e8XkacHip7BV8AQWQA==
-  /popsicle-transport-http/1.0.4/servie@4.2.1:
+  /popsicle-transport-http/1.0.4/servie@4.3.0:
     dependencies:
       make-error-cause: 2.2.1
       pump: 3.0.0
-      servie: 4.2.1
+      servie: 4.3.0
     dev: false
     id: registry.npmjs.org/popsicle-transport-http/1.0.4
     peerDependencies:
       servie: ^4.2.0
     resolution:
       integrity: sha512-GwqlU9dLZMlfqqA2ay/eDSAMPdBBdjpS1PqsDScEmrVCxPVaKlJVcNpHUXevaXv0bpaPM1DfEk1WGByd0RlzLg==
-  /popsicle-transport-xhr/1.0.2/servie@4.2.1:
+  /popsicle-transport-xhr/1.0.2/servie@4.3.0:
     dependencies:
-      servie: 4.2.1
+      servie: 4.3.0
     dev: false
     id: registry.npmjs.org/popsicle-transport-xhr/1.0.2
     peerDependencies:
       servie: ^4.2.0
     resolution:
       integrity: sha512-v9eAJnj1tydT4VmDdyKFE1z/+oL01vB7AS3LfSFMAYv33dzqlxtbApKALcYWBQotIqw3FoIqd2FiDR6qJsOxtA==
-  /popsicle-user-agent/1.0.0/servie@4.2.1:
+  /popsicle-user-agent/1.0.0/servie@4.3.0:
     dependencies:
-      servie: 4.2.1
+      servie: 4.3.0
     dev: false
     id: registry.npmjs.org/popsicle-user-agent/1.0.0
     peerDependencies:
@@ -1186,13 +1255,13 @@ packages:
       integrity: sha512-epKaq3TTfTzXcxBxjpoKYMcTTcAX8Rykus6QZu77XNhJuRHSRxMd+JJrbX/3PFI0opFGSN0BabbAYCbGxbu0mA==
   /popsicle/12.0.4:
     dependencies:
-      popsicle-content-encoding: /popsicle-content-encoding/1.0.0/servie@4.2.1
-      popsicle-cookie-jar: /popsicle-cookie-jar/1.0.0/servie@4.2.1
-      popsicle-redirects: /popsicle-redirects/1.1.0/servie@4.2.1
-      popsicle-transport-http: /popsicle-transport-http/1.0.4/servie@4.2.1
-      popsicle-transport-xhr: /popsicle-transport-xhr/1.0.2/servie@4.2.1
-      popsicle-user-agent: /popsicle-user-agent/1.0.0/servie@4.2.1
-      servie: 4.2.1
+      popsicle-content-encoding: /popsicle-content-encoding/1.0.0/servie@4.3.0
+      popsicle-cookie-jar: /popsicle-cookie-jar/1.0.0/servie@4.3.0
+      popsicle-redirects: /popsicle-redirects/1.1.0/servie@4.3.0
+      popsicle-transport-http: /popsicle-transport-http/1.0.4/servie@4.3.0
+      popsicle-transport-xhr: /popsicle-transport-xhr/1.0.2/servie@4.3.0
+      popsicle-user-agent: /popsicle-user-agent/1.0.0/servie@4.3.0
+      servie: 4.3.0
       throwback: 4.1.0
       tough-cookie: 3.0.1
     dev: false
@@ -1228,10 +1297,10 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-t/7RxHXPH6cJtP0pRG6smSr9QJidhB+3kXu0KgXnbGYMgzEnUxRQ4/LDdfOwZEMyIh3/xHb8PX3t+lfL9z+YVQ==
-  /psl/1.2.0:
+  /psl/1.3.0:
     dev: false
     resolution:
-      integrity: sha512-GEn74ZffufCmkDDLNcl3uuyF/aSD6exEyh1v/ZSdAomB82t6G9hzJVRx0jBmLDW+VfZqks3aScmMw9DszwUalA==
+      integrity: sha512-avHdspHO+9rQTLbv1RO+MPYeP/SzsCoxofjVnHanETfQhTJrmB0HlDoW+EiN/R+C0BZ+gERab9NY0lPN2TxNag==
   /pump/3.0.0:
     dependencies:
       end-of-stream: 1.4.1
@@ -1251,19 +1320,27 @@ packages:
       node: '>=0.6'
     resolution:
       integrity: sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
-  /quick.db/7.0.0-b22:
+  /quick.db/6.3.2:
     dependencies:
-      better-sqlite3: 5.4.1
+      better-sqlite3: 4.2.0
+      express: 4.17.1
       lodash.get: 4.4.2
       lodash.set: 4.3.2
-      lodash.unset: 4.5.2
+      lodash.sortby: 4.7.0
+      socket.io: 2.2.0
     dev: false
     resolution:
-      integrity: sha512-Qi3Mx2ho1M0rWzVwrjh5zqmlNVTLqO6WgaI1suZ4qOxhjD3CFcH2nvOnL7o3kan5C0taCrs9/n4EIvq6CgpCaQ==
+      integrity: sha512-+Fd7skXH/MDoX4TIlwstzt4TsjOqF/3joDurXrSEePf0KPYXEwwq3EnzoJ6C4dzZ58KGSasNdAU1OeC8envvWA==
   /quick.hook/1.5.1:
     dev: false
     resolution:
       integrity: sha512-5Rmt7Y7Zz9TnU/mE/ywxCmOkHa3Evyag+HtTdlFIFOykdfs2jbZYl7xzZghdRD3GuBW/M9YvNB8nD7WBvtQMfQ==
+  /random-bytes/1.0.0:
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha1-T2ih3Arli9P7lYSMMDJNt11kNgs=
   /range-parser/1.2.1:
     dev: false
     engines:
@@ -1373,13 +1450,13 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-JMrvUwE54emCYWlTI+hGrGv5I8dEwmco/00EvkzIIsR7MqrHonbD9pO2MOfFnpFntl7ecpZs+3mW+XbQZu9QCg==
-  /servie/4.2.1:
+  /servie/4.3.0:
     dependencies:
       '@servie/events': 1.0.0
       byte-length: 1.0.2
     dev: false
     resolution:
-      integrity: sha512-MoGLGNFE06XEVmnYdlhvnv6uZis7E4BEJAJVEIJ9AdF3n+uabf4/GFewI26wvDUce8r7pHMRk0MPaRU2FTXPnQ==
+      integrity: sha512-op7otnyu+s/xa9U9yuB33tSvBe5HdviZEpHreA5l1e4g6Rzl8bE8YqlOwmD2Y7XHERb4do9JLe/DT++HV/k7ag==
   /setimmediate/1.0.5:
     dev: false
     resolution:
@@ -1416,11 +1493,11 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==
-  /snekfetch/3.6.4:
+  /snekfetch/4.0.4:
     deprecated: use node-fetch instead
     dev: false
     resolution:
-      integrity: sha512-NjxjITIj04Ffqid5lqr7XdgwM7X61c/Dns073Ly170bPQHLm6jkmelye/eglS++1nfTWktpP6Y2bFXjdPlQqdw==
+      integrity: sha512-dyycG9fvwtSJqKPfMVOpXt+60qvMGe7vWLwOJDiSJaiAx+hs2EnFChG2bXCWn7ulz+zGzrHdN9/yeEb0YqEPww==
   /socket.io-adapter/1.1.1:
     dev: false
     resolution:
@@ -1522,7 +1599,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
-  /table/5.4.4:
+  /table/5.4.5:
     dependencies:
       ajv: 6.10.2
       lodash: 4.17.15
@@ -1532,21 +1609,7 @@ packages:
     engines:
       node: '>=6.0.0'
     resolution:
-      integrity: sha512-IIfEAUx5QlODLblLrGTTLJA7Tk0iLSGBvgY8essPRVNGHAzThujww1YqHLs6h3HfTg55h++RzLHH5Xw/rfv+mg==
-  /tar/4.4.10:
-    dependencies:
-      chownr: 1.1.2
-      fs-minipass: 1.2.6
-      minipass: 2.3.5
-      minizlib: 1.2.1
-      mkdirp: 0.5.1
-      safe-buffer: 5.2.0
-      yallist: 3.0.3
-    dev: false
-    engines:
-      node: '>=4.5'
-    resolution:
-      integrity: sha512-g2SVs5QIxvo6OLp0GudTqEf05maawKUxXru104iaayWA09551tFCTI8f1Asb4lPfkBr91k07iL4c11XO3/b0tA==
+      integrity: sha512-oGa2Hl7CQjfoaogtrOHEJroOcYILTx7BZWLGsJIlzoWmB2zmguhNfPJZsWPKYek/MgCxfco54gEi31d1uN2hFA==
   /text-table/0.2.0:
     dev: false
     resolution:
@@ -1580,7 +1643,7 @@ packages:
   /tough-cookie/3.0.1:
     dependencies:
       ip-regex: 2.1.0
-      psl: 1.2.0
+      psl: 1.3.0
       punycode: 2.1.1
     dev: false
     engines:
@@ -1612,6 +1675,18 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
+  /uid-safe/2.1.5:
+    dependencies:
+      random-bytes: 1.0.0
+    dev: false
+    engines:
+      node: '>= 0.8'
+    resolution:
+      integrity: sha512-KPHm4VL5dDXKz01UuEd88Df+KzynaohSL9fBh096KWAxSKZQDI2uBrVqtvRM4rwrIrRRKsdLNML/lnaaVSRioA==
+  /uid2/0.0.3:
+    dev: false
+    resolution:
+      integrity: sha1-SDEm4Rd03y9xuLY53NeZw3YWK4I=
   /unpipe/1.0.0:
     dev: false
     engines:
@@ -1683,10 +1758,6 @@ packages:
       node: '>=0.4.0'
     resolution:
       integrity: sha1-wodrBhaKrcQOV9l+gRkayPQ5iz4=
-  /yallist/3.0.3:
-    dev: false
-    resolution:
-      integrity: sha512-S+Zk8DEWE6oKpV+vI3qWkaK+jSbIK86pCwe2IF/xwIpQ8jEuxpw9NyaGjmp9+BoJv5FV2piqCDcoCtStppiq2A==
   /yeast/0.1.2:
     dev: false
     resolution:
@@ -1719,12 +1790,18 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
-  client-oauth2: ^4.2.3
+  body-parser: ^1.18.3
+  client-oauth2: ^4.2.5
   discord.js: 'github:discordjs/discord.js'
   express: ^4.16.4
-  hastebin-gen: ^1.3.1
+  express-session: ^1.16.1
+  hastebin-gen: ^2.0.5
+  node-fetch: ^2.6.0
+  passport: ^0.4.0
+  passport-discord: ^0.1.3
   plexi-api: ^1.2.1
-  quick.db: ^7.0.0-b21
-  quick.hook: ^1.4.2
+  quick.db: ^6.3.2
+  quick.hook: ^1.5.1
+  snekfetch: ^4.0.4
   socket.io: ^2.2.0
   walk: ^2.3.14
