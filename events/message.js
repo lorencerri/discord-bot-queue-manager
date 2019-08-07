@@ -10,13 +10,13 @@ exports.run = async (client, message) => {
       // Create Embed
       const embed = new MessageEmbed()
         .setColor(0x7289DA)
-        .setTitle(`Hello, ${message.author.tag}`)
+        .setTitle(`Hello, ${message.author.tag} | INVITE`)
       
       // Variables
       let args = message.content.split(/ +/g);
       let id = args.shift();
       let prefix = args.join(' ');
-      let alreadyInQueue = (!!client.db.get(`bot_${id}`));
+      let alreadyInQueue = (!!(await client.db.fetch(`bot_${id}`)));
       let bot = await client.users.fetch(id).catch(err => { /* Ignore Invalid IDs */ });
       let now = new Date();
 
@@ -29,20 +29,22 @@ exports.run = async (client, message) => {
       if (error) return message.channel.send(embed.setFooter(error)).then(i => i.delete({ timeout: 10000 })); // Send Error
       
       // Update Database
-      client.db.set(`bot_${id}`, {
+      await client.db.set(`bot_${id}`, {
         code: 0,
         prefix: prefix,
         authorID: message.author.id,
         invitedTimestamp: `${now.getMonth()+1}/${now.getDate()}/${now.getFullYear()} @ ${now.getHours()}:${now.getMinutes()}`
       });
-      
       // Update Queue
-      let queue = client.db.get('queue') || [];
-      queue.push(id);
-      client.db.set('queue', queue);
+      let queue = await client.db.fetch('queue') || []; 
       
+      queue.push(id);
+      await client.db.push('queue', id);
       // Modify Embed & Send
-      embed.setDescription(`Thank you for inviting **${bot.username}**! It will be added to ${client.managerOptions.mainGuildName} after it is tested.\n\nIn the meantime, please read the rules for bots by typing **\`++limits\` in #bot-testing.**`).setThumbnail(bot.displayAvatarURL());
+      embed.setDescription(`Thank you for inviting **${bot.username}**! It will be added to ${client.managerOptions.mainGuildName} after it is tested.\n\nIn the meantime, please read the rules for bots by typing **\`++limits\` in #bot-testing.** \n\n Also Check **#bot-rules** For **Rules**`).setThumbnail(bot.displayAvatarURL())
+      embed.setURL("https://discordapp.com/api/oauth2/authorize?client_id=" + bot.id + "&permissions=8&scope=bot")
+      embed.setTimestamp()
+      //embed.setThubmnail("© Just9 | Xenox Development")
       message.channel.send(embed);
       
       // Emit getNewInfo

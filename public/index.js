@@ -1,9 +1,11 @@
 /*globals io, getCookie, updateLoadingHTML*/
 
 // Login & Fetch Data
-var socket = io();
-var bearer = getCookie("bearer");
-if (!bearer) updateLoadingHTML('<a href="https://discordapp.com/api/oauth2/authorize?client_id=467875880794849282&redirect_uri=https%3A%2F%2Fdb-manager.glitch.me%2Fcallback&response_type=code&scope=identify"><button type="button" class="btn btn-dark">Login With Discord</button></a>')
+let socket = io();
+let bearer = getCookie("bearer");
+let us = getCookie()
+console.log(us)
+if (!bearer) updateLoadingHTML('<a href="https://discordapp.com/api/oauth2/authorize?client_id=583910433300152331&redirect_uri=http%3A%2F%2Fxenox-dbm.glitch.me%2Fcallback&response_type=code&scope=identify"><button type="button" class="btn btn-dark">Login With Discord</button></a>')
 else socket.emit('getInfo', bearer);
 
 function updateLoadingHTML(html) {
@@ -13,7 +15,7 @@ function updateLoadingHTML(html) {
 }
 
 function emitEvent(botID, event, requireReason) {
-  var reason;
+  let reason;
   if (requireReason) {
     reason = prompt('State why this bot is being denied:');
     if (!reason) return;
@@ -29,10 +31,10 @@ socket.on('getNewInfo', function() {
   socket.emit('getInfo', bearer); 
 })
 
-socket.on('getInfo', function(info) {
+socket.on('getInfoWeb', function(info) {
 
   // Verify Login & Access
-  if (!info) updateLoadingHTML('<a href="https://discordapp.com/api/oauth2/authorize?client_id=467875880794849282&redirect_uri=https%3A%2F%2Fdb-manager.glitch.me%2Fcallback&response_type=code&scope=identify"><button type="button" class="btn btn-dark">Login With Discord</button></a>')
+  if (!info) updateLoadingHTML('<a href="https://discordapp.com/api/oauth2/authorize?client_id=583910433300152331&redirect_uri=http%3A%2F%2Fxenox-dbm.glitch.me%2Fcallback&response_type=code&scope=identify"><button type="button" class="btn btn-dark">Login With Discord</button></a>')
   else if (info === 403) updateLoadingHTML('Sorry, you don\'t have access to this page...');
   else window.loading_screen.finish();
   
@@ -50,7 +52,7 @@ socket.on('getInfo', function(info) {
   if (!info.hasPermission) $('#guest').css('display', 'block')
 
   // Loop Through Bots
-  for (var i = 0; i < queue.length; i++) {
+  for (let i = 0; i < queue.length; i++) {
     
     // Variables
     var row = $("<tr>");
@@ -69,7 +71,7 @@ socket.on('getInfo', function(info) {
       text = `Being Tested By ${queue[i].tester.name}`;
     } else if (code === 3) {
       buttonHTML = `<a target="__blank" href="https://discordapp.com/oauth2/authorize?client_id=${queue[i].bot.id}&scope=bot&permissions=0&guild_id=${queue[i].mainGuildID}"><button type="button" style="margin-right: 10px;" class="btn btn-info btn-sm">Invite (Plexi)</button></a> <button onclick="emitEvent('${queue[i].bot.id}', 'deny', true)" type="button" style="margin-right: 10px;" class="btn btn-danger btn-sm">Deny</button>`;
-      text = 'Awaiting Invite (Plexi)';
+      text = 'Awaiting Invite (Xenox)';
     }
     
     // Update Row

@@ -2,11 +2,12 @@ const Client = require('./structures/Client');
 const client = new Client();
 
 const options = {
-  mainGuildID: '343572980351107077',
-  inviteChannelID: '456171707607154689',
-  logsChannelID: '468944931529162752',
-  mainGuildName: 'Plexi Development',
-  testingGuildID: '398879191975723017',
+  reqID: (process.env.C),
+  mainGuildID: (process.env.MG),
+  inviteChannelID: (process.env.I),
+  logsChannelID: (process.env.L),
+  mainGuildName: 'Xenox Development', // Name Cannot Be In .env , It will throw erorr or Give msg Undefined
+  testingGuildID: (process.env.TG),
 }
 
 client.run(options);
