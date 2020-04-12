@@ -1,6 +1,6 @@
 # Discord Bot Queue Manager
 
-This is the public source code for https://queue.plexidev.org
+This is the public source code for ~~https://queue.plexidev.org~~ *(No longer available, new closed-source version @ [plexidev.org/bots](https://plexidev.org/bots))*
 
 ---
 
